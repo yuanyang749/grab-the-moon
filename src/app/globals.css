@@ -1,0 +1,802 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --night: #080c13;
+  --moonlight: #efe8d9;
+  --muted: #aaa79f;
+  --gold: #d7b87d;
+  --gold-glow: rgba(215, 184, 125, 0.45);
+  --font-serif-en: "Cinzel", "Cormorant Garamond", "Times New Roman", "Baskerville", "Georgia", serif;
+  --font-serif-cn: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", "STKaiti", "KaiTi", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-width: 320px; background: var(--night); }
+body {
+  color: var(--moonlight);
+  font-family: var(--font-serif-cn);
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 1px solid var(--gold); outline-offset: 7px; }
+button:active { transform: translateY(1px); }
+
+/* Main Stage Background */
+.experience {
+  --scene-image: url("/images/mid-autumn-night-v2.png");
+  position: relative;
+  min-height: 640px;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--night);
+  background-image:
+    linear-gradient(90deg, rgba(3, 7, 16, .55), transparent 45%),
+    linear-gradient(180deg, rgba(3, 7, 16, .2) 0%, transparent 48%, rgba(3, 7, 16, .6) 100%),
+    var(--scene-image);
+  background-size: cover, cover, cover;
+  background-position: center;
+}
+
+.starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    radial-gradient(circle at 17% 33%, #eee6d2 0 .7px, transparent 1.1px),
+    radial-gradient(circle at 81% 24%, #eee6d2 0 .8px, transparent 1.2px),
+    radial-gradient(circle at 64% 84%, #eee6d2 0 .6px, transparent 1px),
+    radial-gradient(circle at 24% 77%, #eee6d2 0 .6px, transparent 1px);
+  background-size: 397px 347px, 617px 467px, 487px 587px, 797px 687px;
+}
+
+/* ========================================================
+   TOP-LEFT: "将月亮 变成一块月饼 / TURN THE MOON INTO A MOONCAKE"
+   Completely clear of left corner floral branches (left: 11%)
+   ======================================================== */
+.festival-seal-box {
+  position: absolute;
+  z-index: 10;
+  top: max(48px, calc(env(safe-area-inset-top) + 20px));
+  left: 11%;
+  pointer-events: none;
+  padding: 0;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.8s ease;
+}
+
+.festival-seal-box .seal-chinese {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--font-serif-cn);
+  font-size: clamp(20px, 1.8vw, 27px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  color: #fffbf2;
+  text-shadow: 0 0 18px rgba(245, 199, 126, 0.35), 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+.festival-seal-box .seal-english {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-serif-en);
+  font-size: clamp(10px, 0.85vw, 12px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.28em;
+  color: rgba(243, 235, 222, 0.85);
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+}
+
+/* ========================================================
+   TOP-CENTER: "MID-AUTUMN FESTIVAL / —— 中秋快乐 ——"
+   Grand, authoritative, festive typography matching original artwork
+   ======================================================== */
+.festival-header-badge {
+  position: absolute;
+  z-index: 10;
+  top: max(40px, calc(env(safe-area-inset-top) + 16px));
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  padding: 0;
+  background: transparent;
+  border: none;
+  white-space: nowrap;
+}
+
+.festival-header-badge .festival-title {
+  font-family: var(--font-serif-en);
+  font-size: clamp(24px, 2.5vw, 42px);
+  letter-spacing: 0.38em;
+  color: #fff9f0;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-shadow: 0 0 26px rgba(245, 199, 126, 0.5), 0 2px 16px rgba(0, 0, 0, 0.95);
+}
+
+.festival-header-badge .festival-subtitle-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.festival-header-badge .festival-subtitle-text {
+  font-family: var(--font-serif-cn);
+  font-size: clamp(20px, 2.1vw, 33px);
+  letter-spacing: 0.3em;
+  color: #f3c37c;
+  font-weight: 500;
+  text-shadow: 0 0 22px rgba(243, 195, 124, 0.55), 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+.festival-header-badge .festive-line {
+  position: relative;
+  display: inline-block;
+  width: clamp(52px, 4.8vw, 84px);
+  height: 2px;
+  border-radius: 1px;
+  vertical-align: middle;
+}
+
+.festival-header-badge .festive-line-left {
+  background: linear-gradient(90deg, rgba(243, 195, 124, 0) 0%, rgba(243, 195, 124, 0.95) 100%);
+  box-shadow: 0 0 8px rgba(243, 195, 124, 0.6);
+}
+
+.festival-header-badge .festive-line-left::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 50%;
+  background: #fff0d4;
+  box-shadow: 0 0 8px rgba(255, 240, 212, 0.95), 0 0 3px #f3c37c;
+}
+
+.festival-header-badge .festive-line-right {
+  background: linear-gradient(90deg, rgba(243, 195, 124, 0.95) 0%, rgba(243, 195, 124, 0) 100%);
+  box-shadow: 0 0 8px rgba(243, 195, 124, 0.6);
+}
+
+.festival-header-badge .festive-line-right::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 50%;
+  background: #fff0d4;
+  box-shadow: 0 0 8px rgba(255, 240, 212, 0.95), 0 0 3px #f3c37c;
+}
+
+.festival-header-badge .festival-mobile-motto {
+  display: none;
+}
+
+/* ========================================================
+   TOP-RIGHT TAGLINE: "A SMALL INTERACTION / A WARMER WORLD"
+   Completely clear of right corner floral branches (right: 17%)
+   ======================================================== */
+.festival-tagline {
+  position: absolute;
+  z-index: 10;
+  top: max(48px, calc(env(safe-area-inset-top) + 20px));
+  right: 17%;
+  pointer-events: none;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--font-serif-en);
+  font-size: clamp(9.5px, 0.8vw, 12px);
+  line-height: 1.45;
+  letter-spacing: 0.26em;
+  color: rgba(225, 195, 138, 0.75);
+  font-weight: 400;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* ========================================================
+   3D MOON & MOONCAKE STAGE (HORIZONTALLY CENTERED)
+   ======================================================== */
+.moon-stage {
+  position: absolute;
+  z-index: 1;
+  width: min(80vw, 76dvh);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transition: opacity 1.2s, top 1.2s cubic-bezier(.38, 0, .58, 1), left 1.2s cubic-bezier(.38, 0, .58, 1);
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+.moon-stage.is-ready { opacity: 1; }
+.moon-stage.is-grabbing { cursor: grabbing; }
+.is-transforming .moon-stage, .is-done .moon-stage {
+  left: 50%;
+  top: 42%;
+}
+.moon-stage canvas { width: 100% !important; height: 100% !important; }
+.moon-stage:focus-visible { outline: none; }
+
+.is-done .moon-stage { cursor: grab; }
+.is-done .moon-stage:active { cursor: grabbing; }
+
+/* ========================================================
+   CENTER HERO CAPTION & TEXT (BELOW MOON / MOONCAKE)
+   ======================================================== */
+.scene-caption {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 12%;
+  width: min(92%, 680px);
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-banner {
+  transition: opacity 0.6s ease;
+}
+.hero-banner.is-faded {
+  opacity: 0.35;
+}
+
+.hero-title {
+  margin: 0 0 12px;
+  font-family: var(--font-serif-en);
+  font-size: clamp(21px, 2.4vw, 36px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.22em;
+  color: #fffaf0;
+  text-shadow: 0 0 20px rgba(245, 199, 126, 0.35), 0 3px 20px rgba(0, 0, 0, 0.95);
+}
+
+.grab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 20px;
+  border: 1px solid rgba(215, 184, 125, 0.5);
+  border-radius: 999px;
+  background: rgba(14, 20, 30, 0.65);
+  backdrop-filter: blur(8px);
+  color: #ffdca8;
+  font-family: var(--font-serif-en);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  margin: 6px 0 10px;
+  box-shadow: 0 0 18px rgba(215, 184, 125, 0.22);
+}
+.grab-pill.is-visible {
+  opacity: 1;
+  animation: pillPulse 2.8s ease-in-out infinite;
+}
+@keyframes pillPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 18px rgba(215, 184, 125, 0.22); }
+  50% { transform: scale(1.03); box-shadow: 0 0 26px rgba(215, 184, 125, 0.4); }
+}
+
+.grab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.hint-desc {
+  margin: 0;
+  font-family: var(--font-serif-cn);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: rgba(239, 232, 217, 0.75);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+.blindbox-hint {
+  margin: 7px 0 0;
+  font-family: var(--font-serif-cn);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #f0c991;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.touch-copy { display: none; }
+
+.loading {
+  position: absolute;
+  inset: 48% 0 auto;
+  text-align: center;
+  font-family: var(--font-serif-en);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .24em;
+}
+
+/* Transformation state */
+.transformation-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.transformation-label {
+  font-family: var(--font-serif-cn);
+  font-size: 15px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-shadow: 0 0 18px var(--gold-glow);
+  animation: labelPulse 1s ease-in-out infinite alternate;
+}
+.transformation-sub {
+  font-family: var(--font-serif-en);
+  font-size: 11.5px;
+  letter-spacing: 0.24em;
+  color: rgba(239, 232, 217, 0.75);
+  margin: 0;
+}
+@keyframes labelPulse {
+  from { opacity: 0.75; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1.03); }
+}
+
+/* Mooncake Result state */
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.result-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cake-headline {
+  font-family: var(--font-serif-en);
+  font-size: clamp(24px, 2.8vw, 42px);
+  letter-spacing: 0.26em;
+  color: #ffdca8;
+  font-weight: 500;
+  text-shadow: 0 0 26px var(--gold-glow);
+}
+.cake-subheadline {
+  font-family: var(--font-serif-cn);
+  font-size: clamp(15px, 1.8vw, 22px);
+  letter-spacing: 0.28em;
+  color: #fff9f0;
+  margin: 6px 0 10px;
+}
+.new-discovery {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 220, 168, 0.55);
+  border-radius: 999px;
+  color: #ffdca8;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.cake-flavor {
+  margin: 0 0 5px;
+  color: #d7b87d;
+  font-family: var(--font-serif-cn);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+.result .blessing {
+  font-family: var(--font-serif-cn);
+  font-size: 13.5px;
+  color: #e5dac9;
+  letter-spacing: 0.18em;
+  margin: 0 0 9px;
+}
+.collection {
+  margin-bottom: 12px;
+  color: #e5dac9;
+  font-family: var(--font-serif-cn);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.collection-label { display: block; margin-bottom: 5px; }
+.collection-stamps { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
+.collection-stamp {
+  padding: 3px 8px;
+  border: 1px solid rgba(215, 184, 125, 0.22);
+  border-radius: 999px;
+  color: rgba(229, 218, 201, 0.42);
+  background: rgba(8, 16, 26, 0.45);
+  font-size: inherit;
+  letter-spacing: inherit;
+  pointer-events: auto;
+}
+.collection-stamp.is-found { color: #f2d4a9; border-color: rgba(215, 184, 125, 0.55); }
+.collection-stamp.is-current { background: rgba(215, 184, 125, 0.2); }
+.collection-stamp:disabled { cursor: default; }
+.collection-stamp.is-found:hover { background: rgba(215, 184, 125, 0.2); }
+.cake-inspect-tips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.tip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-serif-cn);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: #d7b87d;
+  background: rgba(215, 184, 125, 0.12);
+  border: 1px solid rgba(215, 184, 125, 0.35);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+.tip-badge .badge-icon {
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  margin-top: 6px;
+  padding: 8px 18px;
+  border: 1px solid rgba(215, 184, 125, 0.45);
+  background: rgba(15, 20, 30, 0.65);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  font-family: var(--font-serif-en);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.reset:hover {
+  border-color: var(--gold);
+  background: rgba(215, 184, 125, 0.18);
+  box-shadow: 0 0 16px var(--gold-glow);
+}
+.reset .reset-icon {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.reset:hover .reset-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (min-width: 961px) {
+  .is-done .moon-stage { left: 42%; }
+  .scene-caption.has-result {
+    inset: 0;
+    width: 100%;
+    transform: none;
+  }
+  .has-result .result {
+    position: relative;
+    height: 100%;
+    justify-content: flex-end;
+    padding-bottom: max(74px, 10vh);
+  }
+  .has-result .cake-poem {
+    position: absolute;
+    top: 25%;
+    right: 4.5%;
+    text-align: right;
+  }
+  .has-result .cake-headline {
+    margin-bottom: 22px;
+    font-size: clamp(13px, 1.2vw, 17px);
+    letter-spacing: 0.18em;
+  }
+  .has-result .poem-lines {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: clamp(12px, 1.5vw, 23px);
+  }
+  .has-result .poem-lines p {
+    margin: 0;
+    writing-mode: vertical-rl;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  }
+  .has-result .cake-subheadline {
+    font-size: clamp(24px, 2.4vw, 33px);
+    color: #fff9f0;
+  }
+  .has-result .cake-flavor {
+    font-size: clamp(16px, 1.45vw, 20px);
+    color: #e7c58c;
+  }
+  .has-result .blessing {
+    font-size: clamp(16px, 1.5vw, 21px);
+    color: #f2e6d3;
+  }
+  .has-result .result-controls {
+    width: min(720px, 70vw);
+    transform: translateX(-8vw);
+  }
+}
+
+/* ========================================================
+   BOTTOM FOOTER: AUDIO / "SAME MOON • DIFFERENT WAYS • BRIGHTER TOGETHER" / HELP
+   ======================================================== */
+.footer {
+  position: absolute;
+  z-index: 10;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: 4%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.festival-bottom-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-serif-en);
+  font-size: clamp(10.5px, 0.95vw, 13px);
+  letter-spacing: 0.28em;
+  color: rgba(225, 195, 138, 0.88);
+  font-weight: 400;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}
+.festival-bottom-bar .slogan-dot {
+  opacity: 0.6;
+}
+.festival-bottom-bar .slogan-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #d7b87d;
+  flex-shrink: 0;
+}
+
+.help-toggle, .sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 0;
+  border-bottom: 1px solid #77766c;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-serif-cn);
+  font-size: 11px;
+  letter-spacing: .06em;
+  padding: 6px 0;
+  transition: color .2s, border-color .2s;
+}
+.help-toggle .toggle-icon,
+.sound-toggle .toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  flex-shrink: 0;
+}
+.help-toggle:hover, .sound-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.help-panel {
+  position: absolute;
+  z-index: 20;
+  right: 4%;
+  bottom: 60px;
+  padding: 24px;
+  width: min(380px, 92%);
+  border: 1px solid #333b46;
+  background: rgba(17, 24, 33, 0.94);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 48px #05080c;
+  border-radius: 4px;
+}
+.help-panel h2 { font-family: var(--font-serif-cn); font-size: 17px; font-weight: 500; margin-top: 0; color: var(--moonlight); }
+.help-panel p { font-size: 13px; line-height: 1.7; color: #b9bbc0; margin: 8px 0; }
+.help-panel a { color: var(--moonlight); text-underline-offset: 3px; }
+.help-panel .credits { font-size: 11px; margin-bottom: 0; color: #7f858f; margin-top: 14px; }
+
+.fallback {
+  position: absolute;
+  inset: 22% 6% 15%;
+  text-align: center;
+  z-index: 2;
+}
+.fallback img { width: min(42dvh, 70vw); height: auto; }
+.fallback h2 { font-size: 20px; font-weight: 400; }
+.fallback p { font-size: 14px; color: var(--muted); }
+.fallback button { padding: 12px 20px; border: 1px solid #736d61; background: transparent; }
+.canvas-error { color: var(--muted); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ======================================================== */
+@media (pointer: coarse) {
+  .desktop-copy { display: none; }
+  .touch-copy { display: inline; }
+}
+
+@media (max-aspect-ratio: 1) {
+  .experience { --scene-image: url("/images/mid-autumn-night-portrait.png"); }
+}
+
+@media (max-width: 960px) {
+  .festival-seal-box { left: 5%; }
+  .festival-tagline { display: none; }
+}
+
+@media (max-width: 768px) {
+  /* On mobile portrait, corner flowers occupy top-left and top-right down to ~15%.
+     Position header cleanly below them in the open sky */
+  .festival-seal-box {
+    display: none;
+  }
+
+  .festival-header-badge {
+    top: max(68px, calc(env(safe-area-inset-top) + 38px));
+    width: min(84%, 330px);
+    white-space: normal;
+  }
+  .festival-header-badge .festival-title {
+    font-size: clamp(16px, 4.6vw, 22px);
+    letter-spacing: 0.24em;
+    line-height: 1.25;
+  }
+  .festival-header-badge .festival-subtitle-wrap {
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .festival-header-badge .festival-subtitle-text {
+    font-size: clamp(15px, 4.2vw, 20px);
+    letter-spacing: 0.22em;
+  }
+  .festival-header-badge .festive-line {
+    width: clamp(34px, 8vw, 50px);
+    height: 1.5px;
+  }
+  .festival-header-badge .festive-line-left::after,
+  .festival-header-badge .festive-line-right::before {
+    width: 3.5px;
+    height: 3.5px;
+  }
+  .festival-header-badge .festival-mobile-motto {
+    display: block;
+    font-family: var(--font-serif-cn);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: rgba(245, 235, 220, 0.88);
+    margin-top: 6px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+  }
+
+  .festival-tagline { display: none; }
+
+  .moon-stage {
+    width: min(82vw, 54dvh);
+    left: 60%;
+    top: 38%;
+  }
+  .is-transforming .moon-stage,
+  .is-done .moon-stage {
+    left: 50%;
+    top: 42%;
+  }
+  .scene-caption {
+    bottom: 8%;
+    width: 92%;
+  }
+  .hero-title {
+    font-size: 19px;
+    line-height: 1.35;
+    letter-spacing: 0.16em;
+  }
+  .grab-pill {
+    padding: 5px 16px;
+    font-size: 11px;
+  }
+  .hint-desc {
+    font-size: 11px;
+  }
+
+  .festival-bottom-bar {
+    display: none;
+  }
+  .cake-headline {
+    font-size: clamp(17px, 4.5vw, 22px);
+    letter-spacing: 0.15em;
+  }
+  .cake-subheadline {
+    font-size: 13.5px;
+  }
+  .cake-inspect-tips {
+    gap: 6px;
+  }
+  .tip-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+  .result .blessing { font-size: 12px; }
+  .collection { margin-bottom: 9px; }
+  .collection-stamp { font-size: 10px; padding: 2px 6px; }
+}
+
+@media (max-height: 700px) and (min-width: 769px) {
+  .moon-stage { width: 70dvh; top: 38%; }
+  .scene-caption { bottom: 9%; }
+  .hero-title { font-size: 22px; }
+  .festival-header-badge .festival-title { font-size: 24px; }
+  .festival-header-badge .festival-subtitle-text { font-size: 19px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .festival-seal-box { animation: fadeIn 0.8s 0.2s backwards; }
+  .festival-header-badge { animation: fadeIn 0.8s 0.2s backwards; }
+  .festival-tagline { animation: fadeIn 0.8s 0.2s backwards; }
+  .result { animation: fadeIn 0.6s both; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes inkReveal {
+    from { opacity: 0; filter: blur(5px); transform: translateY(-5px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 961px) {
+  .has-result .poem-char { display: inline-block; animation: inkReveal 0.75s ease-out both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
